@@ -1,2 +1,2 @@
 # Projet-POO
-Projet POO - Denecheau Dorian - Dhaoui Mohammed - Bare Hugo
+Projet POO - Denecheau Dorian - Dhaoui Mohammed - Baré Hugo
