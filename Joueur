@@ -1,0 +1,19 @@
+class Joueur():
+    def init(self, nom):
+        self.nom=nom
+        self.monnaie=[3,0,0]
+        self.batiment=[Etablissement("Champs de Blé"),Etablissemnt("Boulangerie")]
+
+    def Nom(self):
+        return self.nom
+
+    def Monnaie(self):
+        return self.monnaie
+    
+    def Batiment(self):
+        return self.batiment
+
+    def Argent(self):
+        return self.monnaie[0]+self.monnaie[1]*5+self.monnaie[2]*10
+
+    
