@@ -1,21 +1,11 @@
 from abc import ABC, abstractmethod
 from Effets_Cartes import Effets
 import numpy.random as npr
-
-class De:
-    def __init__(self):
-        self._roll:int = 0
-
-    @property
-    def roll(self):
-        return self._roll
-
-    def lancer(self):
-        self._roll = npr.randint(1,7)
         
 class Carte(ABC):
 
     _effets = {
+        
             "Champs de Blé": Effets.champs_de_ble,
             "Ferme": Effets.ferme,
             "Boulangerie": Effets.boulangerie,
@@ -142,20 +132,26 @@ class Etablissement(Carte):
     }
 
 
-    def __init__(self, nom):
+    def __init__(self, nom, varianteJoueur:bool = False):
         super().__init__(nom)
         self._roll:int = self._rolls.get(nom, [])
-        self._quantite = 4 if self._type == "Complexe" else 6
+        if varianteJoueur:
+            self._quantite = 0 if self._nom not in ["Champs de Blé","Boulangerie"] else 1
+        else:
+            self._quantite = 4 if self._type == "Complexe" else 6
 
     @property
     def roll(self):
         return self._roll
+    @property
+    def quantite(self):
+        return self._quantite
 
-    def effet_carte(self, joueur, partie):
+    def effet_carte(self, roll, joueur, partie):
         effet = self._effets.get(self._nom)
 
         if effet is not None:
-            effet(joueur, partie)
+            effet(joueur, partie, roll)
     
 
 

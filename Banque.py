@@ -88,10 +88,9 @@ def trouver_paiement(montant, pieces_joueur, reserve):
 
 
 class Banque:
-    def __init__(self, liste_joueur):
-        self._liste_joueur = liste_joueur
+    def __init__(self, nbjoueur):
         self._reserve = {
-            1 : 36 - 3*len(liste_joueur), # Chaque joueur recoit 3 pieces de 1 au debut de partie
+            1 : 36 - 3*nbjoueur, # Chaque joueur recoit 3 pieces de 1 au debut de partie
             5 : 9,
             10 : 9
         }
