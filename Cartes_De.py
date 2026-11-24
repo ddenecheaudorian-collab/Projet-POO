@@ -147,6 +147,9 @@ class Etablissement(Carte):
     def quantite(self):
         return self._quantite
 
+    def construire(self):
+        self._quantite += 1
+
     def effet_carte(self, roll, joueur, partie):
         effet = self._effets.get(self._nom)
 
