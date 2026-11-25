@@ -69,9 +69,11 @@ class Partie:
         else:
             raise ValueError(f"Le joueur ne peut pas construire la carte {nom_carte}")
 
-    def echange(self, joueur1, nom_carte1, joueur2, nom_carte2):
-        carte1 = joueur1.liste_cartes[nom_carte1]
-        carte2 = joueur2.liste_cartes[nom_carte2]
+    def echange(self, joueur1):
+
+        carte1 = joueur1.liste_cartes[input(f"Choisissez une carte que vous vous voulez échanger : {[(joueur1.liste_cartes[c].nom, joueur1.liste_cartes[c].quantite) for c in joueur1.liste_cartes if joueur1.liste_cartes[c].type not in ["Complexe", "Monument"]]}")]
+        joueur2 = self._liste_joueur[int(input(f"Choisissez le joueur avec lequel vous voulez échanger : {[i for i in range(len(self._liste_joueur)) if self._liste_joueur[i] is not joueur1]}"))]
+        carte2 = joueur2.liste_cartes[input(f"Choisissez une carte du joueur avec qui vous échangez : {[(joueur2.liste_cartes[c].nom, joueur2.liste_cartes[c].quantite) for c in joueur2.liste_cartes if joueur2.liste_cartes[c].type not in ["Complexe", "Monument"]]}")]
 
         if carte1.type in ["Complexe","Monument"] or carte2.type in ["Complexe","Monument"]:
             raise ValueError(f"Impossible d'échanger les cartes {nom_carte1} et {nom_carte2}")
@@ -79,8 +81,8 @@ class Partie:
         carte1.detruire()
         carte2.detruire()
 
-        joueur1.liste_cartes[nom_carte2].construire()
-        joueur2.liste_cartes[nom_carte1].construire()
+        joueur1.liste_cartes[carte2.nom].construire()
+        joueur2.liste_cartes[carte1.nom].construire()
 
 
         
@@ -120,10 +122,8 @@ print(P._liste_joueur[0].liste_cartes["Mine"].quantite)
 P._liste_joueur[0].liste_cartes["Verger"].quantite = 2
 P._liste_joueur[2].liste_cartes["Mine"].quantite = 4
 
+
+P.echange(P._liste_joueur[0])
+
 print([(P._liste_joueur[0].liste_cartes[c].nom,P._liste_joueur[0].liste_cartes[c].quantite) for c in P._liste_joueur[0].liste_cartes if P._liste_joueur[0].liste_cartes[c].type != "Monument"])
 print([(P._liste_joueur[2].liste_cartes[c].nom,P._liste_joueur[2].liste_cartes[c].quantite) for c in P._liste_joueur[2].liste_cartes if P._liste_joueur[2].liste_cartes[c].type != "Monument"])
-P.echange(P._liste_joueur[0],"Verger",P._liste_joueur[2],"Mine")
-print([(P._liste_joueur[0].liste_cartes[c].nom,P._liste_joueur[0].liste_cartes[c].quantite) for c in P._liste_joueur[0].liste_cartes if P._liste_joueur[0].liste_cartes[c].type != "Monument"])
-print([(P._liste_joueur[2].liste_cartes[c].nom,P._liste_joueur[2].liste_cartes[c].quantite) for c in P._liste_joueur[2].liste_cartes if P._liste_joueur[2].liste_cartes[c].type != "Monument"])
-
-
