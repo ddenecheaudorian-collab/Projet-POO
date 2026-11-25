@@ -61,7 +61,7 @@ def trouver_paiement(montant, pieces_joueur, reserve):
     Alors la liste triee devient [c2,c3,c1] = [12,13,17], on trie en fait les combinaisons dans l'ordre croissant
     par rapport a la difference entre le montant a payer et l'argent total des combinaisons
     """
-    combinaisons.sort(key=lambda p: (10 * p[10] + 5 * p[5] + p[1] - montant)) 
+    combinaisons.sort(key=lambda p: (10 * p[10] + 5 * p[5] + p[1] - montant))
 
     for paiement in combinaisons:
         valeur_paiement = (paiement[1] + 5 * paiement[5] + 10 * paiement[10])
@@ -95,6 +95,10 @@ class Banque:
             10 : 9
         }
 
+    @property
+    def reserve(self):
+        return self._reserve
+    
     def recevoir_argent(self, joueur, montant):
 
         if montant < 0:

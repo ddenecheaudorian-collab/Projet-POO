@@ -18,7 +18,7 @@ class Effets:
 
     @staticmethod
     def boulangerie(joueur,partie,roll):
-        if roll==2 or de.roll==3:
+        if roll==2 or roll==3:
             carte=next((c for c in joueur.batiment if c.nom=="Boulangerie"))
             partie.banque.donner_argent(joueur,carte.quantite)
 

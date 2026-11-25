@@ -45,7 +45,7 @@ class Joueur:
     def total_argent(self):
         s = 0
         for valeur in [1,5,10]:
-            s += self._argent[valeur]
+            s += valeur*self._argent[valeur]
         return s
 
     def construire(self, nom_etablissement:str):
@@ -56,6 +56,7 @@ class Joueur:
     def transfert(self, joueur2, montant, partie):
         if self.total_argent <= montant:
             montant = self.total_argent
+            
         if partie.banque.recevoir_argent(self, montant):
             partie.banque.donner_argent(joueur2, montant)
         else:

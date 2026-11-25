@@ -24,6 +24,10 @@ class Partie:
             "Stade": Etablissement("Stade"),
             "Centre d'affaires": Etablissement("Centre d'affaires"),
             "Chaîne de télévision": Etablissement("Chaîne de télévision"),
+            "Gare" : Monument("Gare"),
+            "Centre Commercial" : Monument("Centre Commercial"),
+            "Tour Radio" : Monument("Tour Radio"),
+            "Parc d'attractions" : Monument("Parc d'attractions")
 
         }
 
@@ -44,15 +48,23 @@ class Partie:
 
     def construire(self, joueur, nom_carte:str):
         carte_partie = self._reserve_etablissement[nom_carte] 
+
+        if carte_partie.type == "Monument":
+            if joueur.liste_cartes[nom_carte].est_construit:
+                raise ValueError(f"Le joueur a déja construit le monument {nom_carte}")
+            else:
+                if self.banque.recevoir_argent(joueur,carte_partie.cout_construction):
+                    joueur.construire(nom_carte)
+                    return True
+
         if carte_partie.quantite == 0:
             raise ValueError(f"Il n'a plus de carte {nom_carte} dans la réserve")
+        
         if carte_partie.type == "Complexe":
             if joueur.liste_cartes[nom_carte].quantite == 1:
                 raise ValueError(f"Un joueur ne peut posséder qu'une seule carte {nom_carte}")
-        if joueur.liste_cartes[nom_carte] == "Monument":
-            if joueur.liste_cartes[nom_carte].est_construit == True:
-                raise ValueError(f"Le joueur a déja construit le monument {nom_carte}")
-        if self.banque.donner_argent(carte_partie.cout_construction, joueur.argent):
+ 
+        if self.banque.recevoir_argent(joueur,carte_partie.cout_construction):
             joueur.construire(nom_carte)
         else:
             raise ValueError(f"Le joueur ne peut pas construire la carte {nom_carte}")
@@ -73,11 +85,21 @@ P._liste_joueur[2].argent = {
     5 : 0,
     10 : 2
 }
+"""
+print(P.banque.reserve)
+P._liste_joueur[0].transfert(P._liste_joueur[2],24,P)
+print(P.banque.reserve)
 
-print(P.banque._reserve)
-print(P.banque.recevoir_argent(P._liste_joueur[0],17))
-print(P.banque._reserve)
-#P._liste_joueur[0].transfert(P._liste_joueur[2],17,P)
+print(P._liste_joueur[0].argent)
+print(P._liste_joueur[2].argent)
+"""
+"""
+print(P._liste_joueur[0].liste_cartes["Mine"].quantite)
+P.construire(P._liste_joueur[0],"Mine")
+print(P._liste_joueur[0].argent)
+print(P._liste_joueur[0].liste_cartes["Mine"].quantite)
+"""
 
-#print(P._liste_joueur[0].argent)
-#print(P._liste_joueur[2].argent)
+
+
+
