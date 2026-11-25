@@ -63,7 +63,13 @@ class Joueur:
             return False
         return True
 
-
-
-
-    
+"""
+joueur = Joueur()
+cartes_elevage = []
+for nom in joueur.liste_cartes:
+    if joueur.liste_cartes[nom].type == "Naturel":
+        cartes_elevage.append(joueur.liste_cartes[nom])
+print(cartes_elevage)
+print(cartes_elevage[0].nom)
+print(cartes_elevage[1].nom)
+"""

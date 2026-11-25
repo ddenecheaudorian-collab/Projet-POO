@@ -69,6 +69,20 @@ class Partie:
         else:
             raise ValueError(f"Le joueur ne peut pas construire la carte {nom_carte}")
 
+    def echange(self, joueur1, nom_carte1, joueur2, nom_carte2):
+        carte1 = joueur1.liste_cartes[nom_carte1]
+        carte2 = joueur2.liste_cartes[nom_carte2]
+
+        if carte1.type in ["Complexe","Monument"] or carte2.type in ["Complexe","Monument"]:
+            raise ValueError(f"Impossible d'échanger les cartes {nom_carte1} et {nom_carte2}")
+
+        carte1.detruire()
+        carte2.detruire()
+
+        joueur1.liste_cartes[nom_carte2].construire()
+        joueur2.liste_cartes[nom_carte1].construire()
+
+
         
         
         
@@ -86,10 +100,13 @@ P._liste_joueur[2].argent = {
     10 : 2
 }
 """
-print(P.banque.reserve)
-P._liste_joueur[0].transfert(P._liste_joueur[2],24,P)
-print(P.banque.reserve)
-
+print(P._liste_joueur[0].argent)
+print(P._liste_joueur[2].argent)
+P._liste_joueur[0].transfert(P._liste_joueur[2],0,P)
+print(P._liste_joueur[0].argent)
+print(P._liste_joueur[2].argent)
+"""
+"""
 print(P._liste_joueur[0].argent)
 print(P._liste_joueur[2].argent)
 """
@@ -100,6 +117,13 @@ print(P._liste_joueur[0].argent)
 print(P._liste_joueur[0].liste_cartes["Mine"].quantite)
 """
 
+P._liste_joueur[0].liste_cartes["Verger"].quantite = 2
+P._liste_joueur[2].liste_cartes["Mine"].quantite = 4
 
+print([(P._liste_joueur[0].liste_cartes[c].nom,P._liste_joueur[0].liste_cartes[c].quantite) for c in P._liste_joueur[0].liste_cartes if P._liste_joueur[0].liste_cartes[c].type != "Monument"])
+print([(P._liste_joueur[2].liste_cartes[c].nom,P._liste_joueur[2].liste_cartes[c].quantite) for c in P._liste_joueur[2].liste_cartes if P._liste_joueur[2].liste_cartes[c].type != "Monument"])
+P.echange(P._liste_joueur[0],"Verger",P._liste_joueur[2],"Mine")
+print([(P._liste_joueur[0].liste_cartes[c].nom,P._liste_joueur[0].liste_cartes[c].quantite) for c in P._liste_joueur[0].liste_cartes if P._liste_joueur[0].liste_cartes[c].type != "Monument"])
+print([(P._liste_joueur[2].liste_cartes[c].nom,P._liste_joueur[2].liste_cartes[c].quantite) for c in P._liste_joueur[2].liste_cartes if P._liste_joueur[2].liste_cartes[c].type != "Monument"])
 
 
