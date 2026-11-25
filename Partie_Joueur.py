@@ -66,6 +66,8 @@ class Partie:
  
         if self.banque.recevoir_argent(joueur,carte_partie.cout_construction):
             joueur.construire(nom_carte)
+            carte_partie.detruire()
+            return True
         else:
             raise ValueError(f"Le joueur ne peut pas construire la carte {nom_carte}")
 
@@ -76,7 +78,7 @@ class Partie:
         carte2 = joueur2.liste_cartes[input(f"Choisissez une carte du joueur avec qui vous échangez : {[(joueur2.liste_cartes[c].nom, joueur2.liste_cartes[c].quantite) for c in joueur2.liste_cartes if joueur2.liste_cartes[c].type not in ["Complexe", "Monument"]]}")]
 
         if carte1.type in ["Complexe","Monument"] or carte2.type in ["Complexe","Monument"]:
-            raise ValueError(f"Impossible d'échanger les cartes {nom_carte1} et {nom_carte2}")
+            raise ValueError(f"Impossible d'échanger les cartes {carte1.nom} et {carte2.nom}")
 
         carte1.detruire()
         carte2.detruire()
