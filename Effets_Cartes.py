@@ -1,4 +1,4 @@
-fimport numpy.random as npr
+import numpy.random as npr
 class Effets:
 
     @staticmethod
@@ -19,7 +19,7 @@ class Effets:
     def boulangerie(joueur,partie,roll):
         if roll==2 or roll==3:
             carte=joueur.liste_cartes["Boulangerie"]
-            carte2=j.liste_cartes["Centre Commercial"]
+            carte2=joueur.liste_cartes["Centre Commercial"]
             partie.banque.donner_argent(joueur,(1+1*carte2.est_construit)*carte.quantite)
 
     @staticmethod
@@ -35,7 +35,7 @@ class Effets:
     def superette(joueur, partie,roll):
         if roll==4:
             carte=joueur.liste_cartes["Supérette"]
-            carte2=j.liste_cartes["Centre Commercial"]    
+            carte2=joueur.liste_cartes["Centre Commercial"]    
             partie.banque.donner_argent(joueur,(3+1*carte2.est_construit)*carte.quantite)
 
     @staticmethod
@@ -64,8 +64,9 @@ class Effets:
     def chaine_de_television(joueur, partie,roll):
         if roll==6:
             carte=joueur.liste_cartes["Chaîne de télévision"]
-            j = partie.liste_joueur[int(input(f"Choisissez un joueur pour qu'il vous donnent l'équivalent de 5 pièces : {[i for i in range(len(partie.liste_joueur)) if partie.liste_joueur[i] is not joueur]}"))]
-            j.transfert(joueur,5*carte.quantite,partie)
+            if carte.quantite > 0:
+                j = partie.liste_joueur[int(input(f"Choisissez un joueur pour qu'il vous donnent l'équivalent de 5 pièces : {[i+1 for i in range(len(partie.liste_joueur)) if partie.liste_joueur[i] is not joueur]}")-1)]
+                j.transfert(joueur,5*carte.quantite,partie)
 
     @staticmethod
     def fromagerie(joueur, partie,roll):
@@ -133,8 +134,9 @@ class Effets:
     def gare(joueur, partie,De1,De2):
         carte=joueur.liste_cartes["Gare"]
         if carte.est_construit:
-            De1.roll()
-            De2.roll()
+            Dem = input(f"Le joueur {partie.joueur_actif} veut-il lancer un deuxième dé ?")
+            if Dem:
+                De2.roll()
         
     @staticmethod
     def centre_commercial(joueur, partie, De1, De2):
@@ -144,11 +146,13 @@ class Effets:
     def tour_radio(joueur, partie, De1, De2):
         carte=joueur.liste_cartes["Tour Radio"]
         if carte.est_construit:
-            Dem=boul(input(f"Le joueur {partie.liste_joueur.index(joueur)+1} a obtenu {D1.roll_mem,D2.roll_mem} à son lancer. Relancer les dés ?(O/N)").lower() == "o")
-            if Dem==True : 
+            Dem=bool(input(f"Le joueur {partie.liste_joueur.index(joueur)+1} a obtenu {De1.roll_mem,De2.roll_mem} à son lancer. Relancer les dés ?(O/N)").lower() == "o")
+            if Dem: 
                 De1.roll()
                 De2.roll()
     
     @staticmethod
     def parc_attraction(joueur, partie, De1, De2):
-        pass
+        carte=joueur.liste_cartes["Parc d'attractions"]
+        if carte.est_construit:
+            partie.joueur_actif -= 1

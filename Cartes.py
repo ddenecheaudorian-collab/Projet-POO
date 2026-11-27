@@ -85,11 +85,9 @@ class Carte(ABC):
     def type(self):
         return self._type
 
-    def effet_carte(self, roll, joueur, partie):
-        effet = self._effets.get(self._nom)
-
-        if effet is not None:
-            effet(joueur, partie, roll)
+    @abstractmethod
+    def effet_carte(self):
+        pass
 
     @abstractmethod
     def construire(self):
@@ -109,6 +107,12 @@ class Monument(Carte):
 
     def construire(self):
         self._est_construit = True
+
+    def effet_carte(self, joueur, partie, De1, De2):
+        effet = self._effets.get(self._nom)
+
+        if effet is not None:
+            effet(joueur, partie, De1, De2)
     
 class Etablissement(Carte):
 
@@ -158,6 +162,12 @@ class Etablissement(Carte):
             self._quantite -= 1
         else:
             raise ValueError(f"Le joueur ne possède pas de carte {self._nom}")
+
+    def effet_carte(self, joueur, partie, roll):
+        effet = self._effets.get(self._nom)
+
+        if effet is not None:
+            effet(joueur, partie, roll)
 
     
 

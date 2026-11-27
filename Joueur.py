@@ -1,4 +1,4 @@
-from Cartes_De import *
+from Cartes import *
 class Joueur:
     def __init__(self):
         self._argent = {
@@ -10,21 +10,21 @@ class Joueur:
         }
         self._liste_cartes = {
 
+            "Café": Etablissement("Café",True),
+            "Stade": Etablissement("Stade",True),
+            "Chaîne de télévision": Etablissement("Chaîne de télévision",True),
+            "Restaurant": Etablissement("Restaurant",True),
             "Champs de Blé": Etablissement("Champs de Blé",True),
             "Ferme": Etablissement("Ferme",True),
             "Boulangerie": Etablissement("Boulangerie",True),
-            "Café": Etablissement("Café",True),
             "Supérette": Etablissement("Supérette",True),
             "Forêt": Etablissement("Forêt",True),
             "Fromagerie": Etablissement("Fromagerie",True),
             "Fabrique de meubles": Etablissement("Fabrique de meubles",True),
             "Mine": Etablissement("Mine",True),
-            "Restaurant": Etablissement("Restaurant",True),
             "Verger": Etablissement("Verger",True),
             "Marché de Fruits et Légumes": Etablissement("Marché de Fruits et Légumes",True),
-            "Stade": Etablissement("Stade",True),
             "Centre d'affaires": Etablissement("Centre d'affaires",True),
-            "Chaîne de télévision": Etablissement("Chaîne de télévision",True),
             "Gare" : Monument("Gare"),
             "Centre Commercial" : Monument("Centre Commercial"),
             "Tour Radio" : Monument("Tour Radio"),
