@@ -142,10 +142,10 @@ class Effets:
 
     @staticmethod
     def tour_radio(joueur, partie, De1, De2):
-        Dem=boul(input("Veux-tu relancer les dés ?(O/N)").lower() == "o")
-        if Dem==True : 
-            carte=joueur.liste_cartes["Tour Radio"]
-            if carte.est_construit:
+        carte=joueur.liste_cartes["Tour Radio"]
+        if carte.est_construit:
+            Dem=boul(input(f"Le joueur {partie.liste_joueur.index(joueur)+1} a obtenu {D1.roll_mem,D2.roll_mem} à son lancer. Relancer les dés ?(O/N)").lower() == "o")
+            if Dem==True : 
                 De1.roll()
                 De2.roll()
     
