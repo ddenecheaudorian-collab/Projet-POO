@@ -1,4 +1,4 @@
-import numpy.random as npr
+fimport numpy.random as npr
 class Effets:
 
     @staticmethod
@@ -19,7 +19,8 @@ class Effets:
     def boulangerie(joueur,partie,roll):
         if roll==2 or roll==3:
             carte=joueur.liste_cartes["Boulangerie"]
-            partie.banque.donner_argent(joueur,carte.quantite)
+            carte2=j.liste_cartes["Centre Commercial"]
+            partie.banque.donner_argent(joueur,(1+1*carte2.est_construit)*carte.quantite)
 
     @staticmethod
     def cafe(joueur,partie,roll):
@@ -27,13 +28,15 @@ class Effets:
             for j in partie.liste_joueur:
                 if j!=joueur:
                     carte=j.liste_cartes["Café"]
-                    joueur.transfert(j,carte.quantite,partie)
+                    carte2=j.liste_cartes["Centre Commercial"]
+                    joueur.transfert(j,(1+1*carte2.est_construit)*carte.quantite,partie)
 
     @staticmethod
     def superette(joueur, partie,roll):
         if roll==4:
-                carte=joueur.liste_cartes["Supérette"]
-                partie.banque.donner_argent(joueur,3*carte.quantite)
+            carte=joueur.liste_cartes["Supérette"]
+            carte2=j.liste_cartes["Centre Commercial"]    
+            partie.banque.donner_argent(joueur,(3+1*carte2.est_construit)*carte.quantite)
 
     @staticmethod
     def foret(joueur, partie,roll):
@@ -103,7 +106,8 @@ class Effets:
             for j in partie.liste_joueur:
                 if j!=joueur:
                     carte=j.liste_cartes["Restaurant"]
-                    joueur.transfert(j,2*carte.quantite,partie)
+                    carte2=j.liste_cartes["Centre Commercial"]
+                    joueur.transfert(j,(2+1*carte2.est_construit)*carte.quantite,partie)
 
     @staticmethod
     def verger(joueur, partie,roll):
@@ -126,17 +130,25 @@ class Effets:
             partie.banque.donner_argent(joueur,2*S*carte.quantite)
 
     @staticmethod
-    def gare(joueur, partie):
-        pass
+    def gare(joueur, partie,De1,De2):
+        carte=joueur.liste_cartes["Gare"]
+        if carte.est_construit:
+            De1.roll()
+            De2.roll()
+        
+    @staticmethod
+    def centre_commercial(joueur, partie, De1, De2):
+       pass
 
     @staticmethod
-    def centre_commercial(joueur, partie):
-        pass
-
-    @staticmethod
-    def tour_radio(joueur, partie):
-        pass
+    def tour_radio(joueur, partie, De1, De2):
+        Dem=boul(input("Veux-tu relancer les dés ?(O/N)").lower() == "o")
+        if Dem==True : 
+            carte=joueur.liste_cartes["Tour Radio"]
+            if carte.est_construit:
+                De1.roll()
+                De2.roll()
     
     @staticmethod
-    def parc_attraction(joueur, partie):
+    def parc_attraction(joueur, partie, De1, De2):
         pass
